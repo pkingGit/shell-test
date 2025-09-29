@@ -31,6 +31,8 @@
 #define UTILS_H
 
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,6 +54,50 @@ extern char *unescape(const char *str, FILE *errf);
    Note: Running this on a string returned by unescape will not do what you want
    in all likelihood. */
 extern int first_unquoted_space(const char *str);
+
+/**
+ * Gets host name.
+ * Caller is responsible for deallocating result.
+ * @return host name.
+ */
+extern char* getHostName();
+
+/**
+ * Gets user name.
+ * Caller is responsible for deallocating result.
+ * @return user name.
+ */
+extern char* getUserName();
+
+/**
+ * Read possibly quoted tokens from string, returning array of tokens
+ * and number of tokens parsed. Modifies original string.
+ * Caller is responsible for deallocating result which contains
+ * pointers to locations in original (modified) string.
+ * @param string        a string.
+ * @param numTokens     pointer to number of tokens parsed.
+ * @return array of tokens.
+ */
+extern char** getTokens(char* string, int* numTokens);
+
+/**
+ * Removes leading whitespace from string.
+ * @param s      a string.
+ */
+extern void trimLeading(char* s);
+
+/**
+ * Removes trailing whitespace from string.
+ * @param s      a string.
+ */
+extern void trimTrailing(char* s);
+
+/**
+ * Removes leading and trailing whitespace from string.
+ * @param s      a string.
+ */
+extern void trim(char* s);
+
 
 #ifdef __cplusplus
 }
